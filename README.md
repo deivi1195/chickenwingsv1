@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Shadcn-UI Template Usage Instructions
 
 ## technology stack
@@ -59,3 +60,7 @@ pnpm run dev
 ```shell
 pnpm run build
 ```
+=======
+# chickenwingsv1
+Proyecto chickenwings version 1
+>>>>>>> 301957ba80d8e3ebcf19774f9d6601aa6c648e92
