@@ -7,7 +7,7 @@ export const products: Product[] = [
     name: "ROTI WITH BEEF SLICE",
     price: 5.00,
     oldPrice: 15.22,
-    image: "src/assets/combos/combo1.jpg",
+    image: "/images/combos/combo1.jpg",
     rating: 4,
     category: "wraps",
     isFavorite: false
@@ -17,7 +17,7 @@ export const products: Product[] = [
     name: "WHOPPER BURGER KING",
     price: 13.99,
     oldPrice: 18.52,
-    image: "src/assets/combos/combo2.jpg",
+    image: "/images/combos/combo2.jpg",
     rating: 5,
     category: "burgers",
     isFavorite: false
@@ -27,7 +27,7 @@ export const products: Product[] = [
     name: "CHINESE PASTA",
     price: 9.99,
     oldPrice: 12.22,
-    image: "src/assets/combos/combo3.jpg",
+    image: "/images/combos/combo3.jpg",
     rating: 4,
     category: "pasta",
     isFavorite: false
@@ -37,7 +37,7 @@ export const products: Product[] = [
     name: "DELICIOUS BURGER",
     price: 11.99,
     oldPrice: 14.52,
-    image: "src/assets/combos/combo4.jpg",
+    image: "/images/combos/combo4.jpg",
     rating: 4,
     category: "burgers",
     isFavorite: false
@@ -47,7 +47,7 @@ export const products: Product[] = [
     name: "FAST FOOD COMBO",
     price: 15.99,
     oldPrice: 19.52,
-    image: "src/assets/combos/combo5.jpg",
+    image: "/images/combos/combo5.jpg",
     rating: 5,
     category: "combo",
     isFavorite: false
@@ -57,7 +57,7 @@ export const products: Product[] = [
     name: "ROTI WITH CHICKEN",
     price: 10.99,
     oldPrice: 13.52,
-    image: "src/assets/combos/combo6.jpg",
+    image: "/images/combos/combo6.jpg",
     rating: 4,
     category: "wraps",
     isFavorite: false
@@ -67,7 +67,7 @@ export const products: Product[] = [
     name: "GRILLED CHICKEN",
     price: 12.99,
     oldPrice: 15.22,
-    image: "src/assets/combos/combo7.jpg",
+    image: "/images/combos/combo7.jpg",
     rating: 4,
     category: "chicken",
     isFavorite: false

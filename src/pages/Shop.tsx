@@ -7,7 +7,7 @@ export default function Shop() {
       <Header />
       
       {/* Hero Banner */}
-      <div className="relative bg-cover bg-center h-64" style={{ backgroundImage: "url('/src/assets/foods/mosaico-lineart.png')" }}>
+      <div className="relative bg-cover bg-center h-64" style={{ backgroundImage: "url('/images/mosaico-lineart.png')" }}>
         <div className="absolute inset-0 bg-black opacity-80"></div>
         <div className="container mx-auto px-4 h-full flex flex-col justify-center relative z-10">
           <h1 className="text-4xl font-bold text-white mb-2">Nuestro Menú</h1>

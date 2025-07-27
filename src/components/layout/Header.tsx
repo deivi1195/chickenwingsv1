@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CartItem from "../cart/CartItem";
 
 // Importar la imagen
-import chickenWingsLogo from "@/assets/logos/chickenwingssinfondo.png";
+const chickenWingsLogo = "/images/chickenwingssinfondo.png";
 
 export default function Header() {
   const { cartItems, cartTotal, cartCount } = useCart();
