@@ -5,6 +5,9 @@ import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import CartItem from "../cart/CartItem";
 
+// Importar la imagen
+import chickenWingsLogo from "@/assets/logos/chickenwingssinfondo.png";
+
 export default function Header() {
   const { cartItems, cartTotal, cartCount } = useCart();
   
@@ -12,47 +15,35 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-white border-b">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="bg-red-600 rounded-full p-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-white"
-            >
-              <path d="M3 2h18" />
-              <path d="M19 18V6.5a2.5 2.5 0 0 0-5 0V18" />
-              <path d="M5 18V6.5a2.5 2.5 0 0 1 5 0V18" />
-              <path d="M3 18h18" />
-              <path d="M12 22v-4" />
-              <path d="M16 6.5a2.5 2.5 0 0 0-5 0" />
-            </svg>
+        <Link to="/" className="flex items-center">
+          <div className="h-16 w-18">
+            <img 
+              src={chickenWingsLogo} 
+              alt="ChickenWings Logo" 
+              className="h-full w-full object-contain"
+            />
           </div>
-          <span className="text-xl font-bold uppercase">FoodKing</span>
+          <span className="text-xl font-bold uppercase">ChickenWings</span>
         </Link>
         
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-4">
-          <Link to="/" className="font-semibold text-sm hover:text-red-600 transition-colors">
-            HOME PAGE
+          <Link to="/" className="font-semibold text-sm hover:text-red-600 transition-colors" 
+                onClick={() => window.scrollTo(0, 0)}>
+            INICIO
           </Link>
-          <Link to="/shop" className="font-semibold text-sm hover:text-red-600 transition-colors">
-            SHOP
+          <Link to="/shop" className="font-semibold text-sm hover:text-red-600 transition-colors" 
+                onClick={() => window.scrollTo(0, 0)}>
+            ORDENA
           </Link>
           <Link to="/blog" className="font-semibold text-sm hover:text-red-600 transition-colors">
             BLOG
           </Link>
           <Link to="/pages" className="font-semibold text-sm hover:text-red-600 transition-colors">
-            PAGES
+            HORARIOS
           </Link>
           <Link to="/contact" className="font-semibold text-sm hover:text-red-600 transition-colors">
-            CONTACT
+            DIRECCION
           </Link>
         </nav>
         
@@ -99,7 +90,7 @@ export default function Header() {
           
           {/* Contact Button - Only visible on larger screens */}
           <Button className="hidden md:flex bg-red-600 hover:bg-red-700">
-            CONTACT US
+            CONTACTANOS
           </Button>
           
           {/* Mobile menu button */}

@@ -5,9 +5,9 @@ export const products: Product[] = [
   {
     id: 1,
     name: "ROTI WITH BEEF SLICE",
-    price: 10.99,
+    price: 5.00,
     oldPrice: 15.22,
-    image: "https://images.unsplash.com/photo-1633321702518-7feccafb94d5?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo1.jpg",
     rating: 4,
     category: "wraps",
     isFavorite: false
@@ -17,7 +17,7 @@ export const products: Product[] = [
     name: "WHOPPER BURGER KING",
     price: 13.99,
     oldPrice: 18.52,
-    image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo2.jpg",
     rating: 5,
     category: "burgers",
     isFavorite: false
@@ -27,7 +27,7 @@ export const products: Product[] = [
     name: "CHINESE PASTA",
     price: 9.99,
     oldPrice: 12.22,
-    image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo3.jpg",
     rating: 4,
     category: "pasta",
     isFavorite: false
@@ -37,7 +37,7 @@ export const products: Product[] = [
     name: "DELICIOUS BURGER",
     price: 11.99,
     oldPrice: 14.52,
-    image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo4.jpg",
     rating: 4,
     category: "burgers",
     isFavorite: false
@@ -47,7 +47,7 @@ export const products: Product[] = [
     name: "FAST FOOD COMBO",
     price: 15.99,
     oldPrice: 19.52,
-    image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo5.jpg",
     rating: 5,
     category: "combo",
     isFavorite: false
@@ -57,7 +57,7 @@ export const products: Product[] = [
     name: "ROTI WITH CHICKEN",
     price: 10.99,
     oldPrice: 13.52,
-    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo6.jpg",
     rating: 4,
     category: "wraps",
     isFavorite: false
@@ -67,7 +67,7 @@ export const products: Product[] = [
     name: "GRILLED CHICKEN",
     price: 12.99,
     oldPrice: 15.22,
-    image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&w=500&h=500",
+    image: "src/assets/combos/combo7.jpg",
     rating: 4,
     category: "chicken",
     isFavorite: false
