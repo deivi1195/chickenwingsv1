@@ -10,10 +10,10 @@ export const ProductService = {
     let products = JSON.parse(localStorage.getItem('products') || 'null');
     
     // If no products in localStorage, use the initial products data
-    if (!products) {
+    //if (!products) {
       products = initialProducts;
       localStorage.setItem('products', JSON.stringify(products));
-    }
+ //   }
     
     // Filter by category if specified
     if (category && category !== 'all') {

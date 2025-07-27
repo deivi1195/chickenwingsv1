@@ -7,8 +7,13 @@ export default function ProductGrid() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Filter Header */}
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg">
-        <div className="flex items-center gap-2 mb-4 sm:mb-0">
+      {/* <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg"> */}
+
+      <div className="mb-6 flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg">
+
+
+      <h1 className="text-4xl font-bold text-black text-center">ORDENA AHORA</h1>
+        {/* <div className="flex items-center gap-2 mb-4 sm:mb-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -27,21 +32,21 @@ export default function ProductGrid() {
           <span className="text-sm ml-4">
             Showing <span className="font-bold">1-{filteredProducts.length}</span> of {totalResults} Results
           </span>
-        </div>
+        </div> */}
         
         <div className="flex items-center gap-4">
           {/* Sorting Options - Could be expanded in a real app */}
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <span className="text-sm mr-2">Sort By:</span>
             <select className="text-sm border rounded-md py-1 px-2">
               <option value="price">Price</option>
               <option value="name">Name</option>
               <option value="rating">Rating</option>
             </select>
-          </div>
+          </div> */}
           
           {/* View Options */}
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <button className="p-1 bg-red-600 text-white rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -80,12 +85,12 @@ export default function ProductGrid() {
                 <line x1="3" x2="3.01" y1="18" y2="18" />
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       
       {/* Category Tabs */}
-      <div className="mb-6 overflow-x-auto">
+      {/* <div className="mb-6 overflow-x-auto">
         <div className="flex space-x-2 min-w-max">
           {categories.map((category) => (
             <button
@@ -101,11 +106,11 @@ export default function ProductGrid() {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
       
       {/* Products Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-2">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

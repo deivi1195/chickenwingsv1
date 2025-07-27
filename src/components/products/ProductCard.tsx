@@ -1,130 +1,65 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { useCart } from "@/context/CartContext";
 import { useProducts } from "@/context/ProductContext";
 import { Product } from "@/types";
-import { Heart } from "lucide-react";
+import { Plus, ShoppingBasket, Utensils } from "lucide-react";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { toggleFavorite } = useProducts();
   const { addToCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
   
-  // Calculate discount percentage
-  const discountPercentage = product.oldPrice 
-    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
-    : 0;
-  
-  // Handle add to cart
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     addToCart(product.id);
   };
   
-  // Handle toggle favorite
-  const handleToggleFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    toggleFavorite(product.id);
-  };
-  
   return (
-    <Card className="overflow-hidden border-0 bg-white hover:bg-gray-50 transition-all duration-300 group relative">
-      {/* Product Image with Favorite Button */}
-      <div className="relative aspect-square bg-gray-100 overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <Button
-          variant="outline"
-          size="icon"
-          className={`absolute top-2 right-2 rounded-full bg-white ${
-            product.isFavorite ? 'text-red-500' : 'text-gray-500'
-          }`}
-          onClick={handleToggleFavorite}
-        >
-          <Heart 
-            className={`h-4 w-4 ${product.isFavorite ? 'fill-current' : ''}`} 
-          />
-        </Button>
-        
-        {/* Discount Tag */}
-        {discountPercentage > 0 && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">
-            -{discountPercentage}%
-          </div>
-        )}
-        
-        {/* Quick Add Button - Appears on Hover */}
-        <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white py-3 flex justify-center 
-                      translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <button 
-            className="font-medium text-sm flex items-center"
-            onClick={handleAddToCart}
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg"
-              width="16" 
-              height="16" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              className="mr-2"
-            >
-              <circle cx="8" cy="21" r="1" />
-              <circle cx="19" cy="21" r="1" />
-              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-            </svg>
-            Agregar al Carrito
-          </button>
-        </div>
-      </div>
+    <div 
+      className="h-[32rem] w-80 overflow-hidden rounded-3xl group relative bg-white shadow-[4px_4px_12px_rgba(0,0,0,0.4)] hover:shadow-[6px_6px_16px_rgba(0,0,0,0.15)] transition-all duration-300 transform hover:-translate-y-1"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Fondo que se expande en hover con desvanecimiento */}
+      <div className="absolute inset-0 bg-black origin-top transform scale-y-0 group-hover:scale-y-100 transition-all duration-500 ease-out rounded-2xl opacity-0 group-hover:opacity-100" />
       
-      {/* Product Info */}
-      <div className="p-4">
-        {/* Price */}
-        <div className="flex gap-2 mb-1">
-          <span className="text-red-600 font-bold">${product.price.toFixed(2)}</span>
-          {product.oldPrice && (
-            <span className="text-gray-500 line-through text-sm">${product.oldPrice.toFixed(2)}</span>
-          )}
+      <div className="p-6 flex flex-col items-center h-full relative z-10 mt-7 transition-all duration-500">
+        {/* Imagen del producto con efecto de desvanecimiento */}
+        <div className="w-48 h-48 rounded-2xl overflow-hidden mt-4 transition-all duration-500 transform group-hover:scale-105">
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-90"
+          />
         </div>
         
-        {/* Title */}
-        <h3 className="font-bold text-sm uppercase mb-1">{product.name}</h3>
-        
-        {/* Rating */}
-        <div className="flex mb-3">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <svg
-              key={i}
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill={i < product.rating ? "orange" : "none"}
-              stroke="orange"
-              strokeWidth="1.5"
-              className="mr-0.5"
+        {/* Contenedor para nombre, precio y botón */}
+        <div className="flex flex-col items-center space-y-2 flex-grow justify-end w-full mb-12 mt-2 transition-all duration-500">
+          {/* Botón de agregar al carrito con efecto fade-in */}
+          <div className={`w-full flex justify-center mt-5 transition-all duration-500 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <button
+              onClick={handleAddToCart}
+              className="bg-red-500 hover:bg-red-600 group-hover:bg-yellow-500 group-hover:text-black text-white py-1 px-8  mb-5 rounded-full text-base font-medium flex items-center justify-center gap-2 transition-all duration-300 whitespace-nowrap transform hover:scale-105"
             >
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-          ))}
+              <ShoppingBasket className="w-5 h-5" />
+              Agregar
+            </button>
+          </div>
+
+          {/* Nombre del producto con efecto de desvanecimiento */}
+          <h3 className="font-medium text-center text-lg line-clamp-2 group-hover:text-white transition-all duration-500 px-2 mt-2">
+            {product.name}
+          </h3>
+          
+          {/* Precio con efecto de desvanecimiento */}
+          <div className="text-2xl font-bold text-red-600 group-hover:text-white transition-all duration-500">
+            ${product.price.toFixed(2)}
+          </div>
         </div>
-        
-        {/* Add to Cart Button */}
-        <Button 
-          className="w-full bg-zinc-900 hover:bg-black text-white"
-          onClick={handleAddToCart}
-        >
-          Add To Cart
-        </Button>
       </div>
-    </Card>
+    </div>
   );
 }
