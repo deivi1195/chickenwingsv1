@@ -28,7 +28,7 @@ export default function Index() {
         <div 
           className="w-full h-full bg-cover bg-center" 
           style={{ 
-            backgroundImage: "url('/src/assets/foods/hero-bg.png')",
+            backgroundImage: "url('/images/hero-bg.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
