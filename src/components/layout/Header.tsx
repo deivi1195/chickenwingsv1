@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ShoppingCart } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import CartItem from "../cart/CartItem";
 
@@ -9,6 +10,7 @@ import CartItem from "../cart/CartItem";
 const chickenWingsLogo = "/images/chickenwingssinfondo.png";
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cartItems, cartTotal, cartCount } = useCart();
   
   return (
@@ -26,7 +28,7 @@ export default function Header() {
           <span className="text-xl font-bold uppercase">ChickenWings</span>
         </Link>
         
-        {/* Navigation */}
+        {/* Navigation - Desktop */}
         <nav className="hidden md:flex items-center space-x-4">
           <Link to="/" className="font-semibold text-sm hover:text-red-600 transition-colors" 
                 onClick={() => window.scrollTo(0, 0)}>
@@ -47,9 +49,8 @@ export default function Header() {
           </Link>
         </nav>
         
-        {/* Cart and Contact Button */}
         <div className="flex items-center space-x-2">
-          {/* Cart Sheet */}
+          {/* Carrito */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="relative">
@@ -62,54 +63,101 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent className="w-full sm:max-w-md">
-              <SheetHeader>
-                <SheetTitle>Shopping Cart</SheetTitle>
-              </SheetHeader>
-              <div className="mt-8 space-y-4">
-                {cartItems.length === 0 ? (
-                  <p className="text-center text-muted-foreground">Your cart is empty</p>
-                ) : (
-                  <>
-                    {cartItems.map((item) => (
-                      <CartItem key={item.id} item={item} />
-                    ))}
-                    <div className="pt-4 border-t">
-                      <div className="flex justify-between text-lg font-semibold">
-                        <span>Total</span>
-                        <span>${cartTotal.toFixed(2)}</span>
-                      </div>
-                      <Button className="w-full mt-4 bg-red-600 hover:bg-red-700">
-                        Checkout
-                      </Button>
+              <div className="h-full flex flex-col">
+                <h3 className="text-lg font-semibold mb-6">Tu Carrito</h3>
+                <div className="flex-1 overflow-y-auto">
+                  {cartItems.length === 0 ? (
+                    <p className="text-center text-gray-500 mt-8">Tu carrito está vacío</p>
+                  ) : (
+                    <div className="space-y-4">
+                      {cartItems.map((item) => (
+                        <CartItem key={item.id} item={item} />
+                      ))}
                     </div>
-                  </>
+                  )}
+                </div>
+                {cartItems.length > 0 && (
+                  <div className="border-t pt-4 mt-4">
+                    <div className="flex justify-between text-lg font-semibold mb-4">
+                      <span>Total:</span>
+                      <span>${cartTotal.toFixed(2)}</span>
+                    </div>
+                    <Button className="w-full bg-red-600 hover:bg-red-700">
+                      Pagar Ahora
+                    </Button>
+                  </div>
                 )}
               </div>
             </SheetContent>
           </Sheet>
-          
-          {/* Contact Button - Only visible on larger screens */}
+
+          {/* Botón de menú móvil */}
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0">
+              <div className="flex flex-col h-full">
+                <div className="p-6 border-b">
+                  <h3 className="text-lg font-semibold">Menú</h3>
+                </div>
+                <nav className="flex-1 p-6 space-y-2">
+                  <Link 
+                    to="/" 
+                    className="flex items-center p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    <span className="font-medium">INICIO</span>
+                  </Link>
+                  <Link 
+                    to="/shop" 
+                    className="flex items-center p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    <span className="font-medium">ORDENA</span>
+                  </Link>
+                  <Link 
+                    to="/blog" 
+                    className="flex items-center p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="font-medium">BLOG</span>
+                  </Link>
+                  <Link 
+                    to="/pages" 
+                    className="flex items-center p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="font-medium">HORARIOS</span>
+                  </Link>
+                  <Link 
+                    to="/direccion" 
+                    className="flex items-center p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="font-medium">DIRECCIÓN</span>
+                  </Link>
+                </nav>
+                <div className="p-6 border-t">
+                  <Button className="w-full bg-red-600 hover:bg-red-700">
+                    CONTACTANOS
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+
+          {/* Botón de contacto (solo escritorio) */}
           <Button className="hidden md:flex bg-red-600 hover:bg-red-700">
             CONTACTANOS
-          </Button>
-          
-          {/* Mobile menu button */}
-          <Button variant="outline" size="icon" className="md:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
           </Button>
         </div>
       </div>
