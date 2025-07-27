@@ -24,7 +24,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Fondo que se expande en hover con desvanecimiento */}
-      <div className="absolute inset-0 bg-black origin-top transform scale-y-0 group-hover:scale-y-100 transition-all duration-500 ease-out rounded-2xl opacity-0 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-orange-600 origin-top transform scale-y-0 group-hover:scale-y-100 transition-all duration-500 ease-out rounded-2xl opacity-0 group-hover:opacity-100" />
       
       <div className="p-6 flex flex-col items-center h-full relative z-10 mt-7 transition-all duration-500">
         {/* Imagen del producto con efecto de desvanecimiento */}

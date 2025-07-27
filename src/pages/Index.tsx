@@ -14,7 +14,7 @@ export default function Index() {
 
   useEffect(() => {
     if (contentRef.current) {
-      contentRef.current.style.marginTop = '100vh';
+      contentRef.current.style.marginTop = 'calc(100vh - 4rem)';
       contentRef.current.style.position = 'relative';
     }
   }, []);
@@ -24,20 +24,48 @@ export default function Index() {
       <Header />
       
       {/* Hero Section - Fijo */}
-      <section className="fixed top-0 left-0 w-full h-screen -z-10">
+      <section className="fixed top-16 left-0 w-full h-screen -z-10" style={{ height: 'calc(100vh - 4rem)' }}>
+        {/* Imagen para móviles */}
         <div 
-          className="w-full h-full bg-cover bg-center" 
+          className="md:hidden w-full h-full bg-cover bg-center" 
+          style={{ 
+            backgroundImage: "url('/images/hero-bg-mobile.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            position: 'fixed',
+            top: '4rem',
+            left: '0',
+            height: 'calc(100vh - 4rem)'
+          }}
+        ></div>
+        
+        {/* Imagen para escritorio */}
+        <div 
+          className="hidden md:block w-full h-full bg-cover bg-center" 
           style={{ 
             backgroundImage: "url('/images/hero-bg.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
+            backgroundRepeat: 'no-repeat',
+            position: 'fixed',
+            top: '4rem',
+            left: '0',
+            height: 'calc(100vh - 4rem)'
           }}
         ></div>
       </section>
       
       {/* Contenido que se desliza sobre el hero */}
-      <div ref={contentRef} className="z-10">
+      <div 
+        ref={contentRef} 
+        className="z-10 bg-white"
+        style={{
+          marginTop: 'calc(100vh - 4rem)',  // Ajustar según la altura del header
+          minHeight: '100vh',
+          position: 'relative'
+        }}
+      >
         {/* Features Section */}
         <section className="py-16 bg-gray-200">
           <div className="container mx-auto px-4">
