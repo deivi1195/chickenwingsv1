@@ -42,7 +42,7 @@ export default function Header() {
           <Link to="/pages" className="font-semibold text-sm hover:text-red-600 transition-colors">
             HORARIOS
           </Link>
-          <Link to="/contact" className="font-semibold text-sm hover:text-red-600 transition-colors">
+          <Link to="/direccion" className="font-semibold text-sm hover:text-red-600 transition-colors">
             DIRECCION
           </Link>
         </nav>

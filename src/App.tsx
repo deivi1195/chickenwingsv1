@@ -7,6 +7,7 @@ import Shop from './pages/Shop';
 import NotFound from './pages/NotFound';
 import { CartProvider } from './context/CartContext';
 import { ProductProvider } from './context/ProductContext';
+import Direccion from './pages/Direccion';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/direccion" element={<Direccion />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
