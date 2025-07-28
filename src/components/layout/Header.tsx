@@ -9,6 +9,72 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 // Importar la imagen
 const chickenWingsLogo = "/images/chickenwingssinfondo.png";
 
+// Interfaz para los artículos del carrito
+type CartItem = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+};
+
+// Componente separado para el contenido del carrito
+function CartContent({ cartItems, cartTotal, removeFromCart }: { 
+  cartItems: CartItem[]; 
+  cartTotal: number; 
+  removeFromCart: (id: string) => void;
+}) {
+  return (
+    <div className="space-y-4">
+      {cartItems.length === 0 ? (
+        <p className="text-sm text-gray-500 text-center py-4">No hay productos en el carrito</p>
+      ) : (
+        <>
+          <div className="flex-1 overflow-y-auto space-y-4">
+            {cartItems.map((item) => (
+              <div 
+                key={item.id} 
+                className="flex items-center justify-between border-b pb-2"
+              >
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={item.image} 
+                    alt={item.name}
+                    className="w-12 h-12 rounded-md object-cover"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm truncate">{item.name}</p>
+                    <p className="text-sm text-gray-500">
+                      ${item.price.toFixed(2)} x {item.quantity}
+                    </p>
+                  </div>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 text-destructive"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+          <div className="border-t pt-4">
+            <div className="flex justify-between font-semibold mb-4">
+              <span>Total:</span>
+              <span>${cartTotal.toFixed(2)}</span>
+            </div>
+            <Button className="w-full bg-red-600 hover:bg-red-700" asChild>
+              <Link to="/cart">Ver Carrito</Link>
+            </Button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cartItems, cartTotal, cartCount, removeFromCart } = useCart();
@@ -45,74 +111,62 @@ export default function Header() {
             CARRITO
           </Link>
           <Link to="/direccion" className="font-semibold text-sm hover:text-red-600 transition-colors">
-            UBICACION
+            UBICACIÓN
           </Link>
         </nav>
         
         <div className="flex items-center space-x-2">
-          {/* Carrito con Hover */}
-          <HoverCard openDelay={100} closeDelay={200}>
-            <HoverCardTrigger asChild>
-              <Button variant="outline" size="icon" className="relative">
-                <ShoppingCart className="h-5 w-5" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Button>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-80 p-0" align="end" sideOffset={10}>
-              <div className="p-4">
-                <h3 className="font-semibold mb-4">Tu Carrito</h3>
-                {cartItems.length === 0 ? (
-                  <p className="text-sm text-gray-500 text-center py-4">No hay productos en el carrito</p>
-                ) : (
-                  <>
-                    <div className="max-h-60 overflow-y-auto space-y-4">
-                      {cartItems.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between border-b pb-2">
-                          <div className="flex items-center gap-3">
-                            <img 
-                              src={item.image} 
-                              alt={item.name}
-                              className="w-12 h-12 rounded-md object-cover"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <p className="font-medium text-sm truncate">{item.name}</p>
-                              <p className="text-sm text-gray-500">
-                                ${item.price.toFixed(2)} x {item.quantity}
-                              </p>
-                            </div>
-                          </div>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-8 w-8 text-destructive"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              removeFromCart(item.id);
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 pt-4 border-t">
-                      <div className="flex justify-between font-semibold mb-4">
-                        <span>Total:</span>
-                        <span>${cartTotal.toFixed(2)}</span>
-                      </div>
-                      <Button className="w-full bg-red-600 hover:bg-red-700" asChild>
-                        <Link to="/cart">Ver Carrito</Link>
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </HoverCardContent>
-          </HoverCard>
+          {/* Carrito - Versión Desktop (Hover) */}
+          <div className="hidden md:block">
+            <HoverCard openDelay={100} closeDelay={200}>
+              <HoverCardTrigger asChild>
+                <Button variant="outline" size="icon" className="relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80 p-0" align="end" sideOffset={10}>
+                <div className="p-6">
+                  <h3 className="font-semibold mb-4">Tu Carrito</h3>
+                  <CartContent 
+                    cartItems={cartItems} 
+                    cartTotal={cartTotal} 
+                    removeFromCart={removeFromCart} 
+                  />
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </div>
+
+          {/* Carrito - Versión Móvil (Click) */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[80vh] rounded-t-2xl">
+                <div className="h-full flex flex-col">
+                  <h3 className="text-lg font-semibold mb-4">Tu Carrito</h3>
+                  <CartContent 
+                    cartItems={cartItems} 
+                    cartTotal={cartTotal} 
+                    removeFromCart={removeFromCart} 
+                  />
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
 
           {/* Botón de menú móvil */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -150,56 +204,31 @@ export default function Header() {
                   </Link>
                 </nav>
                 
-                {/* Carrito en menú móvil */}
+                {/* Sección del carrito en el menú móvil (solo resumen) */}
                 <div className="border-t p-6 mt-auto">
                   <div className="space-y-4">
-                    <h4 className="font-semibold">Tu Carrito</h4>
+                    <h4 className="font-semibold">Resumen del Carrito</h4>
                     {cartItems.length === 0 ? (
                       <p className="text-sm text-gray-500">No hay productos en el carrito</p>
                     ) : (
-                      <>
-                        <div className="space-y-4 max-h-60 overflow-y-auto">
-                          {cartItems.map((item) => (
-                            <div key={item.id} className="flex items-center justify-between border-b pb-2">
-                              <div className="flex items-center gap-3">
-                                <img 
-                                  src={item.image} 
-                                  alt={item.name}
-                                  className="w-12 h-12 rounded-md object-cover"
-                                />
-                                <div>
-                                  <p className="font-medium text-sm">{item.name}</p>
-                                  <p className="text-sm text-gray-500">
-                                    ${item.price.toFixed(2)} x {item.quantity}
-                                  </p>
-                                </div>
-                              </div>
-                              <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="h-8 w-8 text-destructive"
-                                onClick={() => removeFromCart(item.id)}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          ))}
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Productos:</span>
+                          <span>{cartCount} {cartCount === 1 ? 'artículo' : 'artículos'}</span>
                         </div>
-                        <div className="space-y-2 pt-2">
-                          <div className="flex justify-between text-sm">
-                            <span>Subtotal:</span>
-                            <span>${cartTotal.toFixed(2)}</span>
-                          </div>
-                          <Button 
-                            className="w-full bg-red-600 hover:bg-red-700 mt-2"
-                            asChild
-                          >
-                            <Link to="/cart" onClick={() => setMobileMenuOpen(false)}>
-                              Ver Carrito
-                            </Link>
-                          </Button>
+                        <div className="flex justify-between font-semibold">
+                          <span>Total:</span>
+                          <span>${cartTotal.toFixed(2)}</span>
                         </div>
-                      </>
+                        <Button 
+                          className="w-full bg-red-600 hover:bg-red-700 mt-2"
+                          asChild
+                        >
+                          <Link to="/cart" onClick={() => setMobileMenuOpen(false)}>
+                            Ver Carrito Completo
+                          </Link>
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>
