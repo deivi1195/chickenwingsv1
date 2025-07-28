@@ -8,6 +8,7 @@ import { useProducts } from "@/context/ProductContext";
 export default function Index() {
   const { products } = useProducts();
   const contentRef = useRef<HTMLDivElement>(null);
+  const popularSectionRef = useRef<HTMLDivElement>(null);
   
   // Get featured products (first 4 products)
   const featuredProducts = products.slice(0, 4);
@@ -18,10 +19,31 @@ export default function Index() {
       contentRef.current.style.position = 'relative';
     }
   }, []);
+
+  const scrollToPopular = () => {
+    if (popularSectionRef.current) {
+
+      
+
+      window.scrollTo({
+        top: popularSectionRef.current.offsetTop + 680, // Adjust for header
+        behavior: 'smooth'
+      });
+    }
+  };
   
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      
+      {/* Floating Menu Button */}
+      <button 
+        onClick={scrollToPopular}
+        className="fixed bottom-8 right-8 z-50 bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+        aria-label="Ir al menú"
+      >
+        <span className="font-bold text-sm">MENU</span>
+      </button>
       
       {/* Hero Section - Fijo */}
       <section className="fixed top-16 left-0 w-full h-screen -z-10" style={{ height: 'calc(100vh - 4rem)' }}>
@@ -158,13 +180,13 @@ export default function Index() {
         </section>
         
         {/* Featured Products */}
-        <section className="py-16 bg-gray-200">
+        <section ref={popularSectionRef} className="py-16 bg-gray-200">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Popular Items</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Populares</h2>
+              {/* <p className="text-gray-600 max-w-2xl mx-auto">
                 Most ordered items by our customers
-              </p>
+              </p> */}
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
@@ -175,14 +197,14 @@ export default function Index() {
             
             <div className="text-center">
               <Button asChild className="bg-red-600 hover:bg-red-700">
-                <Link to="/shop">View All Products</Link>
+                <Link to="/shop">Ver Todo el Menu</Link>
               </Button>
             </div>
           </div>
         </section>
         
         {/* CTA Section */}
-        <section className="py-16 bg-red-600 text-white">
+        {/* <section className="py-16 bg-red-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">Download Our Mobile App</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
@@ -217,13 +239,13 @@ export default function Index() {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
         
         {/* Footer */}
         <footer className="bg-gray-100 py-8">
           <div className="container mx-auto px-4">
             <div className="text-center">
-              <p className="text-gray-500"> 2025 FoodKing. All rights reserved.</p>
+              <p className="text-gray-500"> 2025 ChickenWings. Todos los derechos reservados.</p>
             </div>
           </div>
         </footer>
