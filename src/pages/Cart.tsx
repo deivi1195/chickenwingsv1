@@ -199,8 +199,8 @@ const Cart = () => {
                     </div>
                     
                     <div className="flex justify-end mt-6">
-                      <Button size="lg">
-                        Proceder al Pago
+                      <Button asChild size="lg">
+                        <Link to="/checkout">Proceder al Pago</Link>
                       </Button>
                     </div>
 
