@@ -1,66 +1,88 @@
-<<<<<<< HEAD
-# Shadcn-UI Template Usage Instructions
+# Chicken Wings - Aplicación de Pedidos con Envío Automático por WhatsApp
 
-## technology stack
+Esta aplicación permite a los clientes realizar pedidos de comida y envía automáticamente los detalles del pedido por WhatsApp al negocio utilizando la API de Twilio.
 
-This project is built with:
+## Tecnologías Utilizadas
+
+Este proyecto está construido con:
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Node.js y Express (backend)
+- Twilio API para WhatsApp
 
-All shadcn/ui components have been downloaded under `@/components/ui`.
+## Estructura del Proyecto
 
-## File Structure
+- **Frontend**: Aplicación React con Vite y TypeScript
+- **Backend**: Servidor Node.js con Express que maneja el envío de mensajes de WhatsApp
 
-- `index.html` - HTML entry point
-- `vite.config.ts` - Vite configuration file
-- `tailwind.config.js` - Tailwind CSS configuration file
-- `package.json` - NPM dependencies and scripts
-- `src/app.tsx` - Root component of the project
-- `src/main.tsx` - Project entry point
-- `src/index.css` - Existing CSS configuration
+## Requisitos Previos
 
-## Components
+1. Node.js y npm instalados
+2. Una cuenta en Twilio (puedes crear una cuenta gratuita en [twilio.com](https://www.twilio.com))
+3. Activar el Sandbox de WhatsApp en Twilio o tener un número de WhatsApp Business aprobado
 
-- All shadcn/ui components are pre-downloaded and available at `@/components/ui`
+## Configuración
 
-## Styling
+### 1. Instalar dependencias
 
-- Add global styles to `src/index.css` or create new CSS files as needed
-- Use Tailwind classes for styling components
+Para instalar todas las dependencias tanto del frontend como del backend, ejecuta:
 
-## Development
-
-- Import components from `@/components/ui` in your React components
-- Customize the UI by modifying the Tailwind configuration
-
-## Note
-
-The `@/` path alias points to the `src/` directory
-
-# Commands
-
-**Install Dependencies**
-
-```shell
-pnpm i
+```bash
+npm run install:all
 ```
 
-**Start Preview**
+### 2. Configurar variables de entorno del servidor
 
-```shell
-pnpm run dev
+En la carpeta `server`, copia el archivo `.env.example` a `.env` y completa con tus credenciales de Twilio:
+
+```
+TWILIO_ACCOUNT_SID=tu_account_sid_aqui
+TWILIO_AUTH_TOKEN=tu_auth_token_aqui
+TWILIO_PHONE_NUMBER=tu_numero_de_whatsapp_aqui
+PORT=3001
 ```
 
-**To build**
+## Comandos
 
-```shell
-pnpm run build
+### Ejecutar solo el frontend
+
+```bash
+npm run dev
 ```
-=======
-# chickenwingsv1
-Proyecto chickenwings version 1
->>>>>>> 301957ba80d8e3ebcf19774f9d6601aa6c648e92
+
+### Ejecutar solo el backend
+
+```bash
+npm run server
+```
+
+### Ejecutar frontend y backend simultáneamente
+
+```bash
+npm run dev:all
+```
+
+### Construir para producción
+
+```bash
+npm run build
+```
+
+## Funcionalidades
+
+- Catálogo de productos
+- Carrito de compras
+- Formulario de pedido
+- Envío automático de detalles del pedido por WhatsApp al negocio
+
+## Flujo de la Aplicación
+
+1. El cliente agrega productos al carrito
+2. El cliente completa el formulario de pedido con sus datos personales
+3. Al enviar el formulario, la aplicación envía los datos al servidor backend
+4. El servidor utiliza la API de Twilio para enviar automáticamente un mensaje de WhatsApp con los detalles del pedido al número del negocio
+5. El cliente recibe una confirmación de que su pedido ha sido enviado
