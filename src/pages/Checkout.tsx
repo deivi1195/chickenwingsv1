@@ -54,7 +54,7 @@ const Checkout = () => {
     try {
       // Enviar los datos al servidor para que envíe el mensaje de WhatsApp
 
-      const response = await fetch('https://chickenwingsvlz2.netlify.app/api/send-whatsapp', {
+      const response = await fetch('https://chickenwings-backend.onrender.com/api/send-whatsapp', {
 
         method: 'POST',
         headers: {

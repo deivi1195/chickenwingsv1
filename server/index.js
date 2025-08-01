@@ -100,3 +100,11 @@ app.get('/api/status', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+// En tu server/index.js
+const cors = require('cors');
+app.use(cors({
+  origin: ['https://chickenwingsvzl.netlify.app/', 'http://localhost:3000'],
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true
+}));
