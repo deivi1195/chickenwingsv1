@@ -7,8 +7,16 @@ const twilio = require('twilio');
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+app.use(cors({
+  origin: [
+    'https://chickenwingsvzl.netlify.app',  // Sin barra al final
+    'http://localhost:3000'
+  ],
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true
+}));
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -101,10 +109,3 @@ app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
-// En tu server/index.js
-const cors = require('cors');
-app.use(cors({
-  origin: ['https://chickenwingsvzl.netlify.app/', 'http://localhost:3000'],
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true
-}));
