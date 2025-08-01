@@ -11,6 +11,7 @@ interface CartContextType {
   clearCart: () => void;
   cartTotal: number;
   cartCount: number;
+  notification: { show: boolean; message: string };
 }
 
 // Create the context with default values
@@ -22,6 +23,7 @@ const CartContext = createContext<CartContextType>({
   clearCart: () => {},
   cartTotal: 0,
   cartCount: 0,
+  notification: { show: false, message: '' },
 });
 
 // Custom hook to use the cart context
@@ -33,6 +35,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartTotal, setCartTotal] = useState(0);
   const [cartCount, setCartCount] = useState(0);
+  const [notification, setNotification] = useState({ show: false, message: '' });
+
+  // Show notification
+  const showNotification = (message: string) => {
+    setNotification({ show: true, message });
+    setTimeout(() => {
+      setNotification(prev => ({ ...prev, show: false }));
+    }, 1000);
+  };
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -59,6 +70,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems(CartService.getCartItems());
     setCartTotal(CartService.getCartTotal());
     setCartCount(CartService.getCartCount());
+    showNotification('Producto agregado al carrito');
   };
 
   // Remove item from cart
@@ -94,10 +106,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         updateQuantity, 
         clearCart, 
         cartTotal, 
-        cartCount 
+        cartCount,
+        notification
       }}
     >
       {children}
+      {notification.show && (
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 z-50 animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <path d="m9 11 3 3L22 4"/>
+          </svg>
+          <span>{notification.message}</span>
+        </div>
+      )}
     </CartContext.Provider>
   );
 };

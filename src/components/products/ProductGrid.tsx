@@ -110,7 +110,7 @@ export default function ProductGrid() {
       
       {/* Products Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-2 justify-items-center">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
