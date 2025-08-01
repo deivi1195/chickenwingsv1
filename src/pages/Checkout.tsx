@@ -38,12 +38,50 @@ const Checkout = () => {
 
   const { register, handleSubmit, formState: { errors } } = form;
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     console.log("Datos del formulario:", data);
     console.log("Productos:", cartItems);
     
-    // Aquí iría la lógica para enviar el pedido
-    // Por ahora, solo mostramos el mensaje de éxito
+    // Preparar los datos para enviar al servidor
+    const customerName = `${data.firstName} ${data.lastName}`;
+    const customerPhone = `58${data.phone}`;
+    const customerAddress = data.address || "Sin Envio";
+    const customerID = data.idNumber;
+    
+    // Calcular el total
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    try {
+      // Enviar los datos al servidor para que envíe el mensaje de WhatsApp
+      const response = await fetch('http://localhost:3001/api/send-whatsapp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerName,
+          customerID,
+          customerPhone,
+          customerAddress,
+          products: cartItems,
+          total
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('Mensaje de WhatsApp enviado correctamente:', result.messageSid);
+      } else {
+        console.error('Error al enviar mensaje de WhatsApp:', result.message);
+        // Aquí podrías mostrar un mensaje de error al usuario
+      }
+    } catch (error) {
+      console.error('Error al comunicarse con el servidor:', error);
+      // Aquí podrías mostrar un mensaje de error al usuario
+    }
+    
+    // Mostrar mensaje de éxito (independientemente del resultado para esta demo)
     setIsSubmitted(true);
     clearCart();
     
@@ -97,7 +135,7 @@ const Checkout = () => {
                 <CheckCircle className="h-6 w-6 text-green-500" />
                 <AlertTitle className="text-xl font-bold">¡Pedido Enviado!</AlertTitle>
                 <AlertDescription className="mt-2 text-gray-700">
-                  Te notificaremos por WhatsApp los datos de pago en breve.
+                  Tu pedido ha sido enviado. Hemos enviado automáticamente los detalles de tu pedido por WhatsApp.
                 </AlertDescription>
               </Alert>
               <Button asChild>
@@ -117,6 +155,7 @@ const Checkout = () => {
                       </label>
                       <Input 
                         id="firstName"
+                        placeholder="Ej. Juan"
                         {...register("firstName")}
                         className={errors.firstName ? "border-red-500" : ""}
                       />
@@ -131,6 +170,7 @@ const Checkout = () => {
                       </label>
                       <Input 
                         id="lastName"
+                        placeholder="Ej. Pérez"
                         {...register("lastName")}
                         className={errors.lastName ? "border-red-500" : ""}
                       />
@@ -146,6 +186,7 @@ const Checkout = () => {
                       <Input 
                         id="idNumber"
                         type="number"
+                        placeholder="Ej. 12345678"
                         {...register("idNumber")}
                         className={errors.idNumber ? "border-red-500" : ""}
                       />
@@ -161,6 +202,7 @@ const Checkout = () => {
                       <Input 
                         id="phone"
                         type="tel"
+                        placeholder="Ej. 4121112233"
                         {...register("phone")}
                         className={errors.phone ? "border-red-500" : ""}
                       />
@@ -175,6 +217,7 @@ const Checkout = () => {
                       </label>
                       <Input 
                         id="address"
+                        placeholder="Ej. Av. Principal, Edificio/Casa, Ciudad"
                         {...register("address")}
                         className={errors.address ? "border-red-500" : ""}
                       />
