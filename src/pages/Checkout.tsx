@@ -53,7 +53,7 @@ const Checkout = () => {
     
     try {
       // Enviar los datos al servidor para que envíe el mensaje de WhatsApp
-      const response = await fetch('http://localhost:3001/api/send-whatsapp', {
+      const response = await fetch('http://localhost:3002/api/send-whatsapp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
